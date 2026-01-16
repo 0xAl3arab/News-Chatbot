@@ -49,6 +49,53 @@ def login():
     else:
         return jsonify({"message": "Invalid credentials"}), 401
 
+@app.route('/save_news', methods=['POST'])
+def save_news():
+    data = request.json
+    user_id = data.get('user_id')
+    question = data.get('question')
+    summary = data.get('summary')
+    sources = json.dumps(data.get('sources'))
+
+    cur = mysql.connection.cursor()
+    try:
+        cur.execute("INSERT INTO saved_news (user_id, question, summary, sources) VALUES (%s, %s, %s, %s)", (user_id, question, summary, sources))
+        mysql.connection.commit()
+        cur.close()
+        return jsonify({"message": "News saved successfully"}), 201
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+@app.route('/saved_news/<int:user_id>', methods=['GET'])
+def get_saved_news(user_id):
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT id, question, summary, sources, saved_at FROM saved_news WHERE user_id = %s ORDER BY saved_at DESC", (user_id,))
+    news = cur.fetchall()
+    cur.close()
+
+    saved_news = []
+    for item in news:
+        saved_news.append({
+            "id": item[0],
+            "question": item[1],
+            "summary": item[2],
+            "sources": json.loads(item[3]) if item[3] else [],
+            "saved_at": item[4]
+        })
+
+    return jsonify(saved_news), 200
+
+@app.route('/delete_news/<int:news_id>', methods=['DELETE'])
+def delete_news(news_id):
+    cur = mysql.connection.cursor()
+    try:
+        cur.execute("DELETE FROM saved_news WHERE id = %s", (news_id,))
+        mysql.connection.commit()
+        cur.close()
+        return jsonify({"message": "News deleted successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
 @app.route('/chat', methods=['POST'])
 def chat():
     data = request.json

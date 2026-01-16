@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Chatbot from './components/Chatbot';
+import SavedNews from './components/SavedNews';
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/chat" element={<Chatbot />} />
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/saved" element={<SavedNews />} />
+        <Route path="/" element={<Navigate to="/chat" replace />} />
       </Routes>
     </Router>
   );

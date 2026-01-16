@@ -18,7 +18,7 @@ client = OpenAI(
 )
 
 embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
-NEWS_API_KEY = "2b178fbeb8d9800fa93076f11777b04a"
+NEWS_API_KEY = "b45333f4f4f879bbcbb289799309f718"
 
 
 # -----------------------------
