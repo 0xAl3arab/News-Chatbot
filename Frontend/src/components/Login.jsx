@@ -34,13 +34,13 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
-      <div className="max-w-md w-full bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100">
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-8 text-center">
-          <div className="mx-auto w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mb-4 backdrop-blur-sm shadow-inner">
+      <div className="max-w-md w-full bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
+        <div className="bg-slate-900 p-8 text-center">
+          <div className="mx-auto w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-4">
             <Newspaper className="w-7 h-7 text-white" />
           </div>
           <h2 className="text-3xl font-bold text-white mb-2 tracking-tight">Welcome Back</h2>
-          <p className="text-blue-100 font-medium">Sign in to continue to News Chatbot</p>
+          <p className="text-slate-300 font-medium">Sign in to continue to News Chatbot</p>
         </div>
 
         <div className="p-8 bg-white">
@@ -55,12 +55,12 @@ const Login = () => {
               <label className="text-sm font-semibold text-slate-700">Email Address</label>
               <div className="relative group">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <User className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />
+                  <User className="h-5 w-5 text-slate-400 group-focus-within:text-slate-600 transition-colors" />
                 </div>
                 <input
                   type="email"
                   required
-                  className="block w-full pl-10 pr-3 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all shadow-sm"
+                  className="block w-full pl-10 pr-3 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all shadow-sm"
                   placeholder="you@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -72,12 +72,12 @@ const Login = () => {
               <label className="text-sm font-semibold text-slate-700">Password</label>
               <div className="relative group">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />
+                  <Lock className="h-5 w-5 text-slate-400 group-focus-within:text-slate-600 transition-colors" />
                 </div>
                 <input
                   type="password"
                   required
-                  className="block w-full pl-10 pr-3 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all shadow-sm"
+                  className="block w-full pl-10 pr-3 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all shadow-sm"
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -87,7 +87,7 @@ const Login = () => {
 
             <button
               type="submit"
-              className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl shadow-md text-sm font-bold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 hover:shadow-lg hover:shadow-blue-500/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 transform hover:-translate-y-0.5"
+              className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl shadow-md text-sm font-bold text-white bg-slate-900 hover:bg-slate-800 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 transition-all duration-200 transform hover:-translate-y-0.5"
             >
               <LogIn className="w-4 h-4" />
               Sign In
@@ -97,7 +97,7 @@ const Login = () => {
           <div className="mt-8 pt-6 border-t border-slate-100 text-center">
             <p className="text-sm text-slate-600">
               Don't have an account?{' '}
-              <Link to="/signup" className="font-bold text-indigo-600 hover:text-indigo-500 transition-colors hover:underline">
+              <Link to="/signup" className="font-bold text-slate-900 hover:text-slate-700 transition-colors hover:underline">
                 Sign up for free
               </Link>
             </p>

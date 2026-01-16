@@ -326,7 +326,9 @@ function Chatbot() {
                                     )}
                                 </div>
                             </div>
+
                         ))}
+
 
                         {isLoading && (
                             <div className="flex gap-4 max-w-3xl mx-auto justify-start">
@@ -338,6 +340,7 @@ function Chatbot() {
                                     <span className="text-sm text-slate-500">Thinking...</span>
                                 </div>
                             </div>
+
                         )}
                         <div ref={messagesEndRef} className="h-4" />
                     </div>
