@@ -22,7 +22,7 @@ NEWS_API_KEY = "2b178fbeb8d9800fa93076f11777b04a"
 
 
 # -----------------------------
-# NEW: Function to fetch full article content
+# Function to fetch full article content
 # -----------------------------
 def fetch_full_article_content(url, max_length=4000):
     """
@@ -58,7 +58,7 @@ def fetch_full_article_content(url, max_length=4000):
 
 
 # -----------------------------
-# NEW: Function to get LLM summary from full article
+# Function to get LLM summary from full article
 # -----------------------------
 def get_article_summary(question, article):
     """
@@ -93,9 +93,9 @@ Keep it concise (2-4 sentences). If the article doesn't contain the answer, say 
 
 
 # -----------------------------
-# MODIFIED: Enhanced ranking function
+# Enhanced ranking function
 # -----------------------------
-def rank_articles_hybrid(question, articles, top_k=3):  # Reduced to top 3 for faster processing
+def rank_articles_hybrid(question, articles, top_k=3):
     """
     Ranks articles using hybrid relevance scoring.
     Now returns top_k most relevant for LLM summarization.
@@ -115,7 +115,7 @@ def rank_articles_hybrid(question, articles, top_k=3):  # Reduced to top 3 for f
 
 
 # -----------------------------
-# Keep original hybrid relevance function (unchanged)
+# Hybrid relevance function
 # -----------------------------
 def calculate_hybrid_relevance(question, article, question_embedding):
     article_text = f"{article.get('title', '')} {article.get('description', '')}"
@@ -144,11 +144,11 @@ def calculate_hybrid_relevance(question, article, question_embedding):
 
 
 # -----------------------------
-# NEW: Main news processing with full content LLM responses
+# Main news processing with full content LLM responses + SOURCES
 # -----------------------------
 def process_news_with_full_content(question, articles):
     """
-    Main function: Rank → Fetch full content → LLM summary → Direct response
+    Main function: Rank → Fetch full content → LLM summary → Direct response with sources
     """
     if not articles:
         return "No relevant articles found."
@@ -195,13 +195,26 @@ Format naturally for the user."""
             max_tokens=500,
             temperature=0.2
         )
-        return final_response.choices[0].message.content.strip()
+
+        # Get the answer
+        answer = final_response.choices[0].message.content.strip()
+
+        # Add sources at the end
+        sources = "\n\n📚 **Sources:**\n"
+        for i, summary_data in enumerate(summaries, 1):
+            sources += f"{i}. {summary_data['title']}\n   🔗 {summary_data['url']}\n"
+
+        # Combine answer + sources
+        full_answer = answer + sources
+
+        return full_answer
+
     except Exception as e:
         return f"Error generating final response: {str(e)}"
 
 
 # -----------------------------
-# MODIFIED: Main chatbot loop
+# Main chatbot loop
 # -----------------------------
 print("📰 News Chatbot with Full Article Analysis started. Type 'exit' to quit.")
 print("-" * 60)
@@ -212,7 +225,7 @@ while True:
         print("Goodbye!")
         break
 
-    # Classification (unchanged)
+    # Classification
     prompt = f"""You are a news classification assistant. Analyze this question: "{user_question}"
 
 If this is a NEWS question, respond with ONLY:
@@ -256,7 +269,7 @@ Output ONLY JSON."""
         )
         print("Bot:", response.choices[0].message.content)
     else:
-        # NEW: Full content processing pipeline
+        # Full content processing pipeline
         params = {
             "q": classification.get("q", user_question),
             "category": classification.get("category", "general"),
