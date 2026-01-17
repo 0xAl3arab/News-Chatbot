@@ -11,4 +11,39 @@ body {
     min-width: 320px;
     min-height: 100vh;
     background-color: #f8fafc;
+    transition: background-color 0.3s ease;
+}
+
+/* Dark mode body background */
+body.dark {
+    background-color: #0f172a;
+}
+
+/* Remove black borders from inputs and textareas */
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none !important;
+}
+
+/* Ensure all buttons and links have pointer cursor */
+button,
+a,
+[role="button"],
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* Disabled elements should show not-allowed cursor */
+button:disabled,
+a:disabled,
+[disabled] {
+    cursor: not-allowed;
+}
+
+/* Smooth transitions for theme changes */
+* {
+    transition-property: background-color, border-color, color;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
 }

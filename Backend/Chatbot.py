@@ -44,7 +44,7 @@ def fetch_full_article_content(url, max_length=4000):
 
         # Get text and clean
         text = soup.get_text()
-        # Clean whitespace
+        # Clean whitespace write the fullkl text in one paragraph
         lines = (line.strip() for line in text.splitlines())
         chunks = (phrase.strip() for line in lines for phrase in line.split('  '))
         text = ' '.join(chunk for chunk in chunks if chunk)
@@ -168,7 +168,7 @@ def process_news_with_full_content(question, articles):
             'summary': summary,
             'relevance': article['relevance_score']
         })
-        time.sleep(0.5)  # Rate limiting
+        time.sleep(0.5)  # Rate limiting to not get a ban
 
     # Step 3: Create final LLM response combining all summaries
     combined_prompt = f"""User question: "{question}"
